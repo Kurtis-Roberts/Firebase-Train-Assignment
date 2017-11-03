@@ -24,6 +24,9 @@ $("#submit").on("click", function(event) {
     trainTime = $("#train-time").val().trim();
     frequency = $("#frequency").val().trim();
 
+    $("#remove").bind("click", function() {
+        $("input[type=text], textarea").val("");
+    });
 
     database.ref().push({
         trainName: trainName,
@@ -37,13 +40,9 @@ $("#submit").on("click", function(event) {
 
 //////////////////////////////////////
 
-$("#remove").on("click", function() {
-    $('#train-name').val(trainName);
-    $("#destination").val(destination);
-    $("#train-time").val(trainTime);
-    $("#frequency").val(frequency);
-});
 
+
+/////////////////////////////////////
 
 database.ref().on("child_added", function(snapshot) {
     var user = snapshot.val();
@@ -100,4 +99,11 @@ database.ref().on("child_added", function(snapshot) {
 
 }, function(errorObject) {
     console.log("The read failed: " + errorObject.code);
+});
+
+$("#remove").on("click", function() {
+    $('#train-name').val(trainName);
+    $("#destination").val(destination);
+    $("#train-time").val(trainTime);
+    $("#frequency").val(frequency);
 });
