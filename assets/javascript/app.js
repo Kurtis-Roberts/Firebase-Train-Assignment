@@ -16,8 +16,6 @@ var trainTime = "";
 var frequency = "";
 
 
-
-
 $("#submit").on("click", function(event) {
     event.preventDefault();
 
@@ -27,23 +25,18 @@ $("#submit").on("click", function(event) {
     frequency = $("#frequency").val().trim();
 
 
-
     database.ref().push({
         trainName: trainName,
         destination: destination,
         trainTime: trainTime,
         frequency: frequency,
-
-
     });
 
-
-
     var todayDate = new Date();
-
-
-
 });
+
+//////////////////////////////////////
+
 $("#remove").on("click", function() {
     $('#train-name').val(trainName);
     $("#destination").val(destination);
@@ -77,7 +70,7 @@ database.ref().on("child_added", function(snapshot) {
 
 
 
-    // $("#tbody").append(row)
+    ////////////////////////////////////
 
 
     var dateFormat = 'HH:mm'
@@ -90,23 +83,15 @@ database.ref().on("child_added", function(snapshot) {
     console.log(firstTime)
 
     var firstTimeConverted = moment(firstTime, "hh:mm A").subtract(1, "years");
-    // console.log("First Time Converted " + firstTimeConverted);
 
     var currentTime = moment();
-    // console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
     var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
-    // console.log("DIFFERENCE IN TIME: " + diffTime);
     var tRemainder = diffTime % user.frequency;
-    // console.log(tRemainder);
     var tMinutesTillTrain = user.frequency - tRemainder;
-    // console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
     var nextTrain = moment().add(tMinutesTillTrain, "minutes");
-    // console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
 
 
-
-
-    // END TIME CONVERSTION // 
+    //////////////////////////// 
 
     td3.text("Every " + user.frequency + " Minutes")
     td4.text(moment(nextTrain).format("hh:mm A"))
@@ -116,7 +101,3 @@ database.ref().on("child_added", function(snapshot) {
 }, function(errorObject) {
     console.log("The read failed: " + errorObject.code);
 });
-
-// }, function(errorObject) {
-//     // console.log("The read failed: " + errorObject.code);
-// });
